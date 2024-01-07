@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-from gazebo_ros_link_attacher.msg import Attach
+from gazebo_ros_link_attacher.srv import Attach, AttachRequest
 from gazebo_msgs.srv import SpawnModel, SpawnModelRequest, SpawnModelResponse
 from copy import deepcopy
 from tf.transformations import quaternion_from_euler
@@ -106,8 +106,8 @@ def create_cube_request(modelname, px, py, pz, rr, rp, ry, sx, sy, sz):
 
 if __name__ == '__main__':
     rospy.init_node('demo_attach_links')
-    attach_pub = rospy.Publisher('/link_attacher_node/attach_models',
-                                 Attach, queue_size=1)
+    attach_client = rospy.ServiceProxy('/link_attacher_node/attach',
+                                 Attach)
     rospy.loginfo("Created publisher to /link_attacher_node/attach_models")
     spawn_srv = rospy.ServiceProxy('/gazebo/spawn_sdf_model', SpawnModel)
     rospy.loginfo("Waiting for /gazebo/spawn_sdf_model service...")
@@ -134,13 +134,15 @@ if __name__ == '__main__':
 
     # Link them
     rospy.loginfo("Attaching cube1 and cube2")
-    amsg = Attach()
+    amsg = AttachRequest()
     amsg.model_name_1 = "cube1"
     amsg.link_name_1 = "link"
     amsg.model_name_2 = "cube2"
     amsg.link_name_2 = "link"
 
-    attach_pub.publish(amsg)
+    res = attach_client(amsg)
+    rospy.loginfo(f"attach : {res.ok}")
+
     # From the shell:
     """
 rostopic pub /link_attacher_node/attach_models gazebo_ros_link_attacher/Attach "model_name_1: 'cube1'
