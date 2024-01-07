@@ -6,6 +6,7 @@
     by a virtual joint temporarily two links in a Gazebo simulation.</description>
 
   <maintainer email="sam.pfeiffer@pal-robotics.com">Sam Pfeiffer</maintainer>
+  <maintainer email="nara.atthama-2020@ftmm.unair.ac.id.com">Nara Atthama</maintainer>
 
 
   <license>BSD</license>
@@ -13,12 +14,14 @@
 
   <build_depend>message_generation</build_depend>
   <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
   <build_depend>gazebo_ros</build_depend>
   <build_depend>gazebo</build_depend>
   <build_depend>std_msgs</build_depend>
 
   <run_depend>message_runtime</run_depend>
   <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
   <run_depend>gazebo_ros</run_depend>
   <run_depend>std_msgs</run_depend>
 

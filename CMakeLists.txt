@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.12)
 project(gazebo_ros_link_attacher)
 
 #####################################
@@ -15,6 +15,9 @@ else()
   message(FATAL_ERROR "Compiler ${CMAKE_CXX_COMPILER} has no C++11 support.")
 endif()
 #####################################
+
+# use python3
+find_package(Python3) 
 
 # Load catkin and all dependencies required for this package
 find_package(catkin REQUIRED COMPONENTS 
